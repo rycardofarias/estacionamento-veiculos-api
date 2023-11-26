@@ -1,8 +1,10 @@
 package com.rycardofarias.estacionamentoveiculoapi.servicies;
 
 import com.rycardofarias.estacionamentoveiculoapi.entities.Usuario;
+import com.rycardofarias.estacionamentoveiculoapi.exceptions.UsernameUniqueViolationException;
 import com.rycardofarias.estacionamentoveiculoapi.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +18,12 @@ public class UsuarioService {
 
     @Transactional
     public Usuario salver(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        try {
+            return usuarioRepository.save(usuario);
+        } catch (DataIntegrityViolationException exception){
+            throw new UsernameUniqueViolationException(String.format("Username {%s} já cadastrado",
+                    usuario.getUsername()));
+        }
     }
 
     @Transactional(readOnly = true)
