@@ -26,9 +26,18 @@ public class UsuarioService {
         );
     }
 
-    public Usuario editarSenha(Long id, String password) {
+    public Usuario editarSenha(Long id, String senhaAtual, String novaSenha, String confirmarSenha) {
+
+        if(!novaSenha.equals(confirmarSenha)){
+            throw new RuntimeException("Nova senha e confirmação de senha são diferentes.");
+        }
+
         Usuario user = buscarPorId(id);
-        user.setPassword(password);
+
+        if(!user.getPassword().equals(senhaAtual)){
+            throw new RuntimeException("Senha atual incorreta.");
+        }
+        user.setPassword(novaSenha);
         return usuarioRepository.save(user);
     }
 

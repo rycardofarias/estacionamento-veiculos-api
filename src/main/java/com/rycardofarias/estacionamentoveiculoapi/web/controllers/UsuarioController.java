@@ -2,6 +2,7 @@ package com.rycardofarias.estacionamentoveiculoapi.web.controllers;
 
 import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioCreateDto;
 import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioResponseDto;
+import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioSenhaDto;
 import com.rycardofarias.estacionamentoveiculoapi.dtos.mappers.UsuarioMapper;
 import com.rycardofarias.estacionamentoveiculoapi.entities.Usuario;
 import com.rycardofarias.estacionamentoveiculoapi.servicies.UsuarioService;
@@ -32,10 +33,12 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Usuario> updatePassword(@PathVariable Long id,
-                                                  @RequestBody Usuario usuario) {
-        Usuario user = usuarioService.editarSenha(id, usuario.getPassword());
-        return ResponseEntity.ok(user);
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id,
+                                                  @RequestBody UsuarioSenhaDto usuarioSenhaDto) {
+        Usuario user = usuarioService.editarSenha(id,usuarioSenhaDto.getSenhaAtual(),
+                usuarioSenhaDto.getNovaSenha(), usuarioSenhaDto.getConfirmarSenha());
+
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping()
