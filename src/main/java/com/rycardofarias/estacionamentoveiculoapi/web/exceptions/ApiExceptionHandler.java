@@ -1,5 +1,6 @@
 package com.rycardofarias.estacionamentoveiculoapi.web.exceptions;
 
+import com.rycardofarias.estacionamentoveiculoapi.exceptions.EntityNotFoundException;
 import com.rycardofarias.estacionamentoveiculoapi.exceptions.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +16,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorMessage> entityNotFoundException(RuntimeException exception,
+                                                                         HttpServletRequest request) {
+        log.error("Api Error - ", exception);
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage( request, HttpStatus.NOT_FOUND, exception.getMessage()));
+    }
+
     @ExceptionHandler(UsernameUniqueViolationException.class)
-    public ResponseEntity<ErrorMessage> usernameUniqueViolationException(RuntimeException exception,
+    public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException exception,
                                                                         HttpServletRequest request) {
         log.error("Api Error - ", exception);
         return ResponseEntity

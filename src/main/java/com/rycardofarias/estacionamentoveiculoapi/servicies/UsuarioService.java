@@ -1,6 +1,7 @@
 package com.rycardofarias.estacionamentoveiculoapi.servicies;
 
 import com.rycardofarias.estacionamentoveiculoapi.entities.Usuario;
+import com.rycardofarias.estacionamentoveiculoapi.exceptions.EntityNotFoundException;
 import com.rycardofarias.estacionamentoveiculoapi.exceptions.UsernameUniqueViolationException;
 import com.rycardofarias.estacionamentoveiculoapi.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class UsuarioService {
     @Transactional(readOnly = true)
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado.")
+                () -> new EntityNotFoundException(String.format("Usuário id=%s não encontrado.", id))
         );
     }
 
