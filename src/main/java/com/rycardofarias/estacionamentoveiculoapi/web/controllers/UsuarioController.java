@@ -1,5 +1,8 @@
 package com.rycardofarias.estacionamentoveiculoapi.web.controllers;
 
+import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioCreateDto;
+import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioResponseDto;
+import com.rycardofarias.estacionamentoveiculoapi.dtos.mappers.UsuarioMapper;
 import com.rycardofarias.estacionamentoveiculoapi.entities.Usuario;
 import com.rycardofarias.estacionamentoveiculoapi.servicies.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +20,9 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    private ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
-        Usuario user = usuarioService.salver(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    private ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioCreateDto createDto) {
+        Usuario user = usuarioService.salver(UsuarioMapper.toUsuario(createDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
 
     @GetMapping("/{id}")

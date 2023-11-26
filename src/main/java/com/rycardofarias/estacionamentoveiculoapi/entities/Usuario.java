@@ -25,7 +25,7 @@ public class Usuario implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 30)
-    private Role role;
+    private Role role = Role.ROLE_CLIENTE; //todo usuario cadastrado inicia como cliente
 
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
