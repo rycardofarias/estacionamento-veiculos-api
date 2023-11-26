@@ -6,6 +6,7 @@ import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioSenhaDto;
 import com.rycardofarias.estacionamentoveiculoapi.dtos.mappers.UsuarioMapper;
 import com.rycardofarias.estacionamentoveiculoapi.entities.Usuario;
 import com.rycardofarias.estacionamentoveiculoapi.servicies.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    private ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioCreateDto createDto) {
+    private ResponseEntity<UsuarioResponseDto> create(@Valid @RequestBody UsuarioCreateDto createDto) {
         Usuario user = usuarioService.salver(UsuarioMapper.toUsuario(createDto));
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
@@ -33,7 +34,7 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updatePassword(@PathVariable Long id,
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id, @Valid
                                                   @RequestBody UsuarioSenhaDto usuarioSenhaDto) {
         Usuario user = usuarioService.editarSenha(id,usuarioSenhaDto.getSenhaAtual(),
                 usuarioSenhaDto.getNovaSenha(), usuarioSenhaDto.getConfirmarSenha());
