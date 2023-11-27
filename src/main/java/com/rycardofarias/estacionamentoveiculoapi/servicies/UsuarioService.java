@@ -2,6 +2,7 @@ package com.rycardofarias.estacionamentoveiculoapi.servicies;
 
 import com.rycardofarias.estacionamentoveiculoapi.entities.Usuario;
 import com.rycardofarias.estacionamentoveiculoapi.exceptions.EntityNotFoundException;
+import com.rycardofarias.estacionamentoveiculoapi.exceptions.PasswordInvalidException;
 import com.rycardofarias.estacionamentoveiculoapi.exceptions.UsernameUniqueViolationException;
 import com.rycardofarias.estacionamentoveiculoapi.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,16 +35,21 @@ public class UsuarioService {
         );
     }
 
+    @Transactional
     public Usuario editarSenha(Long id, String senhaAtual, String novaSenha, String confirmarSenha) {
 
         if(!novaSenha.equals(confirmarSenha)){
-            throw new RuntimeException("Nova senha e confirmação de senha são diferentes.");
+            throw new PasswordInvalidException("Nova senha e confirmação de senha são diferentes.");
         }
 
         Usuario user = buscarPorId(id);
 
         if(!user.getPassword().equals(senhaAtual)){
-            throw new RuntimeException("Senha atual incorreta.");
+            throw new PasswordInvalidException("Senha atual incorreta.");
+        }
+
+        if(user.getPassword().equals(novaSenha)){
+            throw new PasswordInvalidException("Nova senha igual à senha atual.");
         }
         user.setPassword(novaSenha);
         return usuarioRepository.save(user);

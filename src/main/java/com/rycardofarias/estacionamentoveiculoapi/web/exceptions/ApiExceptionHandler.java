@@ -1,6 +1,7 @@
 package com.rycardofarias.estacionamentoveiculoapi.web.exceptions;
 
 import com.rycardofarias.estacionamentoveiculoapi.exceptions.EntityNotFoundException;
+import com.rycardofarias.estacionamentoveiculoapi.exceptions.PasswordInvalidException;
 import com.rycardofarias.estacionamentoveiculoapi.exceptions.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +47,13 @@ public class ApiExceptionHandler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage( request, HttpStatus.UNPROCESSABLE_ENTITY,
                         "Campo(s) inválido(s)", result));
+    }
+    @ExceptionHandler(PasswordInvalidException.class)
+    public ResponseEntity<ErrorMessage> passwordInvalidException(RuntimeException ex, HttpServletRequest request) {
+        log.error("Api Error - ", ex);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
     }
 }
