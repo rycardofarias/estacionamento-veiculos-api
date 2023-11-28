@@ -22,7 +22,7 @@ public class ApiExceptionHandler {
                                                                          HttpServletRequest request) {
         log.error("Api Error - ", exception);
         return ResponseEntity
-                .status(HttpStatus.CONFLICT)
+                .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage( request, HttpStatus.NOT_FOUND, exception.getMessage()));
     }

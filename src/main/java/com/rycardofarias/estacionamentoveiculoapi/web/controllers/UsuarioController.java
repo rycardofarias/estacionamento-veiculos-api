@@ -47,11 +47,11 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
 
-    @Operation(summary = "Buscar um usuário", description = "Recurso para criar um novo usuário",
+    @Operation(summary = "Recuperar um usuário pelo id", description = "Recuperar um usuário pelo id",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Recurso recuperado com sucesso",
+                    @ApiResponse(responseCode = "200", description = "Recurso recuperado com sucesso",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation =
-                                    UsuarioCreateDto.class))),
+                                    UsuarioResponseDto.class))),
                     @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation =
                                     ErrorMessage.class)))
@@ -87,12 +87,9 @@ public class UsuarioController {
 
     @Operation(summary = "Listar todos os usuários", description = "Listar todos os usuários cadastrados",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Lista com todos os usuários cadastrados",
+                    @ApiResponse(responseCode = "200", description = "Lista com todos os usuários cadastrados",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation =
-                                    UsuarioCreateDto.class))),
-                    @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation =
-                                    ErrorMessage.class)))
+                                    UsuarioCreateDto.class)))
             }
     )
     @GetMapping()
