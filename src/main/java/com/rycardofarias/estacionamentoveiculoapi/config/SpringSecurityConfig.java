@@ -30,7 +30,7 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 antMatcher(HttpMethod.POST, "/api/v1/usuarios"),
-                                antMatcher(HttpMethod.POST, "/api/v1/auth/login")
+                                antMatcher(HttpMethod.POST, "/api/v1/auth")
                         ).permitAll()
                         .anyRequest().authenticated()
                 ).sessionManagement(
