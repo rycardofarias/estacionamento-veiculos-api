@@ -1,5 +1,6 @@
 package com.rycardofarias.estacionamentoveiculoapi.config;
 
+import com.rycardofarias.estacionamentoveiculoapi.jwt.JwtAuthenticationEntryPoint;
 import com.rycardofarias.estacionamentoveiculoapi.jwt.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +38,8 @@ public class SpringSecurityConfig {
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 ).addFilterBefore(
                      jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class
+                ).exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
                 ).build();
     }
 
