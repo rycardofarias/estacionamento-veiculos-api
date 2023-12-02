@@ -77,13 +77,8 @@ public class UsuarioController {
             "restrito a usuários com perfil ADMIN ou CLIENTE que esteja acessando seu próprio recurso",
             security = @SecurityRequirement(name = "security"),
             responses = {
-                    @ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation =
-                                    Void.class))),
+                    @ApiResponse(responseCode = "204", description = "Senha atualizada com sucesso"),
                     @ApiResponse(responseCode = "400", description = "Senha incorreta",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation =
-                                    ErrorMessage.class))),
-                    @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation =
                                     ErrorMessage.class))),
                     @ApiResponse(responseCode = "403", description = "Usuário sem permissão para acessar este recurso",
@@ -95,7 +90,7 @@ public class UsuarioController {
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND #id == authentication.principal.id")
     public ResponseEntity<Void> updatePassword(@PathVariable Long id, @Valid
                                                   @RequestBody UsuarioSenhaDto usuarioSenhaDto) {
-        Usuario user = usuarioService.editarSenha(id,usuarioSenhaDto.getSenhaAtual(),
+        usuarioService.editarSenha(id,usuarioSenhaDto.getSenhaAtual(),
                 usuarioSenhaDto.getNovaSenha(), usuarioSenhaDto.getConfirmarSenha());
 
         return ResponseEntity.noContent().build();
