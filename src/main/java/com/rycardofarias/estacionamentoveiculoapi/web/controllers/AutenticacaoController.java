@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/ap1/v1")
+@RequestMapping("/api/v1")
 public class AutenticacaoController {
 
     private final JwtUserDetailsService detailsService;

@@ -23,7 +23,7 @@ import java.util.List;
 @Tag(name = "Usuarios", description = "Contém todas as operações relativas aos recursos de cadastro, edição e leitura")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/usuarios")
+@RequestMapping("/api/v1/usuarios")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
