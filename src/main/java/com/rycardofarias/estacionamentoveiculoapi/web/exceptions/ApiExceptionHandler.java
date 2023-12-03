@@ -1,5 +1,6 @@
 package com.rycardofarias.estacionamentoveiculoapi.web.exceptions;
 
+import com.rycardofarias.estacionamentoveiculoapi.exceptions.CpfUniqueViolationException;
 import com.rycardofarias.estacionamentoveiculoapi.exceptions.EntityNotFoundException;
 import com.rycardofarias.estacionamentoveiculoapi.exceptions.PasswordInvalidException;
 import com.rycardofarias.estacionamentoveiculoapi.exceptions.UsernameUniqueViolationException;
@@ -28,7 +29,7 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage( request, HttpStatus.NOT_FOUND, exception.getMessage()));
     }
 
-    @ExceptionHandler(UsernameUniqueViolationException.class)
+    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class})
     public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException exception,
                                                                         HttpServletRequest request) {
         log.error("Api Error - ", exception);
