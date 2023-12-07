@@ -2,10 +2,13 @@ package com.rycardofarias.estacionamentoveiculoapi.web.controllers;
 
 import com.rycardofarias.estacionamentoveiculoapi.dtos.ClienteCreateDto;
 import com.rycardofarias.estacionamentoveiculoapi.dtos.ClienteResponseDto;
+import com.rycardofarias.estacionamentoveiculoapi.dtos.PageableDto;
 import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioCreateDto;
 import com.rycardofarias.estacionamentoveiculoapi.dtos.mappers.ClienteMapper;
+import com.rycardofarias.estacionamentoveiculoapi.dtos.mappers.PageableMapper;
 import com.rycardofarias.estacionamentoveiculoapi.entities.Cliente;
 import com.rycardofarias.estacionamentoveiculoapi.jwt.JwtUserDetails;
+import com.rycardofarias.estacionamentoveiculoapi.repositories.projections.ClienteProjection;
 import com.rycardofarias.estacionamentoveiculoapi.servicies.ClienteService;
 import com.rycardofarias.estacionamentoveiculoapi.servicies.UsuarioService;
 import com.rycardofarias.estacionamentoveiculoapi.web.exceptions.ErrorMessage;
@@ -15,11 +18,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -78,5 +85,12 @@ public class ClienteController {
     public ResponseEntity<ClienteResponseDto> getById(@PathVariable Long id) {
         Cliente cliente = clienteService.buscarPorId(id);
         return ResponseEntity.ok(ClienteMapper.toDto(cliente));
+    }
+
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<PageableDto> getAll(Pageable pageable) {
+        Page<ClienteProjection> clientes = clienteService.buscarTodos(pageable);
+        return ResponseEntity.ok(PageableMapper.toDto(clientes));
     }
 }

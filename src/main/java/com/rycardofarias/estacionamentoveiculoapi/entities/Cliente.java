@@ -24,9 +24,9 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "nome", nullable = false, unique = true, length = 200)
+    @Column(name = "nome", nullable = false, length = 200)
     private String nome;
-    @Column(name = "cpf", nullable = false, length = 11)
+    @Column(name = "cpf", nullable = false, unique = true, length = 11)
     private String cpf;
     @OneToOne
     @JoinColumn(name = "id_usuario", nullable = false)
