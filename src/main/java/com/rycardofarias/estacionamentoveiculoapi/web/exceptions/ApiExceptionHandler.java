@@ -1,9 +1,6 @@
 package com.rycardofarias.estacionamentoveiculoapi.web.exceptions;
 
-import com.rycardofarias.estacionamentoveiculoapi.exceptions.CpfUniqueViolationException;
-import com.rycardofarias.estacionamentoveiculoapi.exceptions.EntityNotFoundException;
-import com.rycardofarias.estacionamentoveiculoapi.exceptions.PasswordInvalidException;
-import com.rycardofarias.estacionamentoveiculoapi.exceptions.UsernameUniqueViolationException;
+import com.rycardofarias.estacionamentoveiculoapi.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -29,7 +26,7 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage( request, HttpStatus.NOT_FOUND, exception.getMessage()));
     }
 
-    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class})
+    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class, CodigoUniqueViolationException.class})
     public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException exception,
                                                                         HttpServletRequest request) {
         log.error("Api Error - ", exception);
