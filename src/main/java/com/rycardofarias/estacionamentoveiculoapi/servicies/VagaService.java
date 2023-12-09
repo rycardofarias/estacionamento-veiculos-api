@@ -2,6 +2,7 @@ package com.rycardofarias.estacionamentoveiculoapi.servicies;
 
 import com.rycardofarias.estacionamentoveiculoapi.entities.Vaga;
 import com.rycardofarias.estacionamentoveiculoapi.exceptions.CodigoUniqueViolationException;
+import com.rycardofarias.estacionamentoveiculoapi.exceptions.EntityNotFoundException;
 import com.rycardofarias.estacionamentoveiculoapi.repositories.VagaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -25,7 +26,7 @@ public class VagaService {
     }
     @Transactional(readOnly = true)
     public Vaga buscarPorCodigo(String codigo) {
-        return vagaRepository.findByCodigo(codigo).orElseThrow(() -> new RuntimeException(
+        return vagaRepository.findByCodigo(codigo).orElseThrow(() -> new EntityNotFoundException(
                 String.format("Vaga com código {%s} não foi encontrada", codigo)));
     }
 }
