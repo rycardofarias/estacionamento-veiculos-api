@@ -1,11 +1,11 @@
 package com.rycardofarias.estacionamentoveiculoapi.web.controllers;
 
-import com.rycardofarias.estacionamentoveiculoapi.dtos.ClienteCreateDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.ClienteResponseDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.PageableDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioCreateDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.mappers.ClienteMapper;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.mappers.PageableMapper;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.ClienteCreateDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.ClienteResponseDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.PageableDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.UsuarioCreateDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers.ClienteMapper;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers.PageableMapper;
 import com.rycardofarias.estacionamentoveiculoapi.entities.Cliente;
 import com.rycardofarias.estacionamentoveiculoapi.jwt.JwtUserDetails;
 import com.rycardofarias.estacionamentoveiculoapi.repositories.projections.ClienteProjection;
@@ -14,7 +14,6 @@ import com.rycardofarias.estacionamentoveiculoapi.servicies.UsuarioService;
 import com.rycardofarias.estacionamentoveiculoapi.web.exceptions.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,8 +29,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController

@@ -1,4 +1,4 @@
-package com.rycardofarias.estacionamentoveiculoapi.dtos;
+package com.rycardofarias.estacionamentoveiculoapi.web.dtos;
 
 import lombok.*;
 

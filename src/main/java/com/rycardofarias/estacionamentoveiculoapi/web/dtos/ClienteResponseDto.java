@@ -1,4 +1,4 @@
-package com.rycardofarias.estacionamentoveiculoapi.dtos;
+package com.rycardofarias.estacionamentoveiculoapi.web.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,8 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class VagaResponseDto {
+public class ClienteResponseDto {
+
     private Long id;
-    private String codigo;
-    private String status;
+    private String nome;
+    private String cpf;
 }

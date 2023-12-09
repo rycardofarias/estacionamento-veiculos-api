@@ -1,4 +1,4 @@
-package com.rycardofarias.estacionamentoveiculoapi.dtos.mappers;
+package com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

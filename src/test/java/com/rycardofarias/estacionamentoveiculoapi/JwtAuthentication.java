@@ -1,13 +1,13 @@
 package com.rycardofarias.estacionamentoveiculoapi;
 
-import com.rycardofarias.estacionamentoveiculoapi.dtos.mappers.UsuarioLoginDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers.UsuarioLoginDto;
 import com.rycardofarias.estacionamentoveiculoapi.jwt.JwtToken;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.function.Consumer;
 
-public class JwtAutentication {
+public class JwtAuthentication {
 
     public static Consumer<HttpHeaders> getHeaderAuthorization(WebTestClient client, String username, String password) {
 

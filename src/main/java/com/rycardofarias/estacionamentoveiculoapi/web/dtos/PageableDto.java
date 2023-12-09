@@ -1,4 +1,4 @@
-package com.rycardofarias.estacionamentoveiculoapi.dtos;
+package com.rycardofarias.estacionamentoveiculoapi.web.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

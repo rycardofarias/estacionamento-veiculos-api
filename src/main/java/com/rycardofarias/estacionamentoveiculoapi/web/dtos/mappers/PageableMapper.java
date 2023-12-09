@@ -1,6 +1,6 @@
-package com.rycardofarias.estacionamentoveiculoapi.dtos.mappers;
+package com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers;
 
-import com.rycardofarias.estacionamentoveiculoapi.dtos.PageableDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.PageableDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 

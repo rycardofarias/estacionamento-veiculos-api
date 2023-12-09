@@ -1,7 +1,7 @@
-package com.rycardofarias.estacionamentoveiculoapi.dtos.mappers;
+package com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers;
 
-import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioCreateDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioResponseDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.UsuarioCreateDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.UsuarioResponseDto;
 import com.rycardofarias.estacionamentoveiculoapi.entities.Usuario;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;

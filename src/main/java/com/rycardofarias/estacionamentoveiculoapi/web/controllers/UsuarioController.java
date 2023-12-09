@@ -1,9 +1,9 @@
 package com.rycardofarias.estacionamentoveiculoapi.web.controllers;
 
-import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioCreateDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioResponseDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.UsuarioSenhaDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.mappers.UsuarioMapper;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.UsuarioCreateDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.UsuarioResponseDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.UsuarioSenhaDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers.UsuarioMapper;
 import com.rycardofarias.estacionamentoveiculoapi.entities.Usuario;
 import com.rycardofarias.estacionamentoveiculoapi.servicies.UsuarioService;
 import com.rycardofarias.estacionamentoveiculoapi.web.exceptions.ErrorMessage;
@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

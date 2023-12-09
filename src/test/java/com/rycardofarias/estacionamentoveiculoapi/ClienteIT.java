@@ -1,8 +1,8 @@
 package com.rycardofarias.estacionamentoveiculoapi;
 
-import com.rycardofarias.estacionamentoveiculoapi.dtos.ClienteCreateDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.ClienteResponseDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.PageableDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.ClienteCreateDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.ClienteResponseDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.PageableDto;
 import com.rycardofarias.estacionamentoveiculoapi.web.exceptions.ErrorMessage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class ClienteIT {
                 .post()
                 .uri("/api/v1/clientes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
                 .bodyValue(new ClienteCreateDto("Tobias Ferreira", "90285202014"))
                 .exchange()
                 .expectStatus().isCreated()
@@ -45,7 +45,7 @@ public class ClienteIT {
                 .post()
                 .uri("/api/v1/clientes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
                 .bodyValue(new ClienteCreateDto("Tobias Ferreira", "16615177064"))
                 .exchange()
                 .expectStatus().isEqualTo(409)
@@ -63,7 +63,7 @@ public class ClienteIT {
                 .post()
                 .uri("/api/v1/clientes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
                 .bodyValue(new ClienteCreateDto("", ""))
                 .exchange()
                 .expectStatus().isEqualTo(422)
@@ -78,7 +78,7 @@ public class ClienteIT {
                 .post()
                 .uri("/api/v1/clientes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
                 .bodyValue(new ClienteCreateDto("Rick", "00000000000"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
@@ -93,7 +93,7 @@ public class ClienteIT {
                 .post()
                 .uri("/api/v1/clientes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
                 .bodyValue(new ClienteCreateDto("Rick", "902.852.020-14"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
@@ -111,7 +111,7 @@ public class ClienteIT {
                 .post()
                 .uri("/api/v1/clientes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
                 .bodyValue(new ClienteCreateDto("Tobias Ferreira", "90285202014"))
                 .exchange()
                 .expectStatus().isEqualTo(403)
@@ -127,7 +127,7 @@ public class ClienteIT {
         ClienteResponseDto  responseBody = testClient
                 .get()
                 .uri("/api/v1/clientes/10")
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(ClienteResponseDto.class)
@@ -142,7 +142,7 @@ public class ClienteIT {
         ErrorMessage  responseBody = testClient
                 .get()
                 .uri("/api/v1/clientes/0")
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
                 .exchange()
                 .expectStatus().isNotFound()
                 .expectBody(ErrorMessage.class)
@@ -157,7 +157,7 @@ public class ClienteIT {
         ErrorMessage  responseBody = testClient
                 .get()
                 .uri("/api/v1/clientes/0")
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "ricardo@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ricardo@email.com", "123456"))
                 .exchange()
                 .expectStatus().isForbidden()
                 .expectBody(ErrorMessage.class)
@@ -172,7 +172,7 @@ public class ClienteIT {
         PageableDto responseBody = testClient
                 .get()
                 .uri("/api/v1/clientes")
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(PageableDto.class)
@@ -186,7 +186,7 @@ public class ClienteIT {
         responseBody = testClient
                 .get()
                 .uri("/api/v1/clientes?size=1&page=1")
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(PageableDto.class)
@@ -203,7 +203,7 @@ public class ClienteIT {
         ErrorMessage responseBody = testClient
                 .get()
                 .uri("/api/v1/clientes")
-                 .headers(JwtAutentication.getHeaderAuthorization(testClient, "ricardo@email.com", "123456"))
+                 .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ricardo@email.com", "123456"))
                 .exchange()
                 .expectStatus().isForbidden()
                 .expectBody(ErrorMessage.class)
@@ -219,7 +219,7 @@ public class ClienteIT {
         ClienteResponseDto responseBody = testClient
                 .get()
                 .uri("/api/v1/clientes/detalhes")
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "ricardo@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ricardo@email.com", "123456"))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(ClienteResponseDto.class)
@@ -237,7 +237,7 @@ public class ClienteIT {
         ErrorMessage responseBody = testClient
                 .get()
                 .uri("/api/v1/clientes/detalhes")
-                .headers(JwtAutentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "admin@email.com", "123456"))
                 .exchange()
                 .expectStatus().isForbidden()
                 .expectBody(ErrorMessage.class)

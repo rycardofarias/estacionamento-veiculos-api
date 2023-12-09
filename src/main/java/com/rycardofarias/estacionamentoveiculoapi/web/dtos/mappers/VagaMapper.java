@@ -1,7 +1,7 @@
-package com.rycardofarias.estacionamentoveiculoapi.dtos.mappers;
+package com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers;
 
-import com.rycardofarias.estacionamentoveiculoapi.dtos.VagaCreateDto;
-import com.rycardofarias.estacionamentoveiculoapi.dtos.VagaResponseDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.VagaCreateDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.VagaResponseDto;
 import com.rycardofarias.estacionamentoveiculoapi.entities.Vaga;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
