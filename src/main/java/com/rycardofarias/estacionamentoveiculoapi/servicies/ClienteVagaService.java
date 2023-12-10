@@ -2,7 +2,10 @@ package com.rycardofarias.estacionamentoveiculoapi.servicies;
 
 import com.rycardofarias.estacionamentoveiculoapi.entities.ClienteVaga;
 import com.rycardofarias.estacionamentoveiculoapi.repositories.ClienteVagaRepository;
+import com.rycardofarias.estacionamentoveiculoapi.repositories.projections.ClienteVagaProjection;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,5 +29,9 @@ public class ClienteVagaService {
     @Transactional(readOnly = true)
     public long getTotalDeVezesEstacionamentoCompleto(String cpf) {
         return clienteVagaRepository.countByClienteCpfAndDataSaidaIsNotNull(cpf);
+    }
+
+    public Page<ClienteVagaProjection> buscarTodosPorClienteCpf(String cpf, Pageable pageable) {
+        return clienteVagaRepository.findAllByClienteCpf(cpf, pageable);
     }
 }
