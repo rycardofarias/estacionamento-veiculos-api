@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Entity
 @Table(name = "cliente_tem_vagas")
 @EntityListeners(AuditingEntityListener.class)
 public class ClienteVaga {
@@ -58,7 +59,7 @@ public class ClienteVaga {
 
     @ManyToOne
     @JoinColumn(name = "id_vaga", nullable = false)
-    private Cliente vaga;
+    private Vaga vaga;
 
 
     @CreatedDate
