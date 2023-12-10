@@ -16,4 +16,15 @@ public class ClienteVagaService {
     public ClienteVaga salvar(ClienteVaga clienteVaga) {
         return clienteVagaRepository.save(clienteVaga);
     }
+
+    @Transactional(readOnly = true)
+    public ClienteVaga buscarPorRecibo(String recibo) {
+        return clienteVagaRepository.findByReciboAndDataSaidaIsNull(recibo).orElseThrow(
+                () -> new RuntimeException(String.format("Recibo '%s' não encontrado ou checkout já realizado", recibo)));
+    }
+
+    @Transactional(readOnly = true)
+    public long getTotalDeVezesEstacionamentoCompleto(String cpf) {
+        return clienteVagaRepository.countByClienteCpfAndDataSaidaIsNotNull(cpf);
+    }
 }

@@ -1,12 +1,15 @@
 package com.rycardofarias.estacionamentoveiculoapi.web.controllers;
 
 import com.rycardofarias.estacionamentoveiculoapi.entities.ClienteVaga;
+import com.rycardofarias.estacionamentoveiculoapi.servicies.ClienteVagaService;
 import com.rycardofarias.estacionamentoveiculoapi.servicies.EstacionamentoService;
 import com.rycardofarias.estacionamentoveiculoapi.web.dtos.EstacionamentoCreateDto;
 import com.rycardofarias.estacionamentoveiculoapi.web.dtos.EstacionamentoResponseDto;
 import com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers.ClienteVagaMapper;
 import com.rycardofarias.estacionamentoveiculoapi.web.exceptions.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,10 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -31,6 +31,7 @@ import java.net.URI;
 public class EstacionamentoController {
 
     private final EstacionamentoService estacionamentoService;
+    private final ClienteVagaService clienteVagaService;
 
     @Operation(summary = "Operação de check-in", description = "Recurso para dar entrada de um veículo no estacionamento. " +
             "Requisição exige uso de um bearer token. Acesso restrito a Role='ADMIN'",
@@ -64,5 +65,34 @@ public class EstacionamentoController {
                 .toUri();
 
         return ResponseEntity.created(location).body(responseDto);
+    }
+    @Operation(summary = "Localizar um veículo estacionado", description = "Recurso para retornar um veículo estacionado " +
+            "pelo nº do recibo. Requisição exige uso de um bearer token.",
+            security = @SecurityRequirement(name = "security"),
+            parameters = {
+                    @Parameter(in = ParameterIn.PATH, name = "recibo", description = "Número do rebibo gerado pelo check-in")
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Recurso localizado com sucesso",
+                            content = @Content(mediaType = " application/json;charset=UTF-8",
+                                    schema = @Schema(implementation = EstacionamentoResponseDto.class))),
+                    @ApiResponse(responseCode = "404", description = "Número do recibo não encontrado.",
+                            content = @Content(mediaType = " application/json;charset=UTF-8",
+                                    schema = @Schema(implementation = ErrorMessage.class)))
+            })
+    @GetMapping("/check-in/{recibo}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
+    public ResponseEntity<EstacionamentoResponseDto> getByRecibo(@PathVariable String recibo) {
+        ClienteVaga clienteVaga = clienteVagaService.buscarPorRecibo(recibo);
+        EstacionamentoResponseDto responseDto = ClienteVagaMapper.toDto(clienteVaga);
+        return ResponseEntity.ok(responseDto);
+    }
+
+    @GetMapping("/check-out/{recibo}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<EstacionamentoResponseDto> checkout(@PathVariable String recibo) {
+        ClienteVaga clienteVaga = estacionamentoService.checkout(recibo);
+        EstacionamentoResponseDto responseDto = ClienteVagaMapper.toDto(clienteVaga);
+        return ResponseEntity.ok(responseDto);
     }
 }
