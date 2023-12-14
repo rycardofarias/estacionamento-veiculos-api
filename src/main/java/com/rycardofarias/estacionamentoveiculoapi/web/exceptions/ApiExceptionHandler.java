@@ -57,7 +57,7 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorMessage> accessDeniedException(RuntimeException exception,
+    public ResponseEntity<ErrorMessage> accessDeniedException(AccessDeniedException exception,
                                                                 HttpServletRequest request) {
         log.error("Api Error - ", exception);
         return ResponseEntity

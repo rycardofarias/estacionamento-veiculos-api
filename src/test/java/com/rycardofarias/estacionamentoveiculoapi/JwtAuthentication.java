@@ -1,6 +1,6 @@
 package com.rycardofarias.estacionamentoveiculoapi;
 
-import com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers.UsuarioLoginDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.UsuarioLoginDto;
 import com.rycardofarias.estacionamentoveiculoapi.jwt.JwtToken;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.reactive.server.WebTestClient;

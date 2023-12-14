@@ -1,7 +1,7 @@
 package com.rycardofarias.estacionamentoveiculoapi.web.controllers;
 
 import com.rycardofarias.estacionamentoveiculoapi.web.dtos.UsuarioResponseDto;
-import com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers.UsuarioLoginDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.UsuarioLoginDto;
 import com.rycardofarias.estacionamentoveiculoapi.jwt.JwtToken;
 import com.rycardofarias.estacionamentoveiculoapi.jwt.JwtUserDetailsService;
 import com.rycardofarias.estacionamentoveiculoapi.web.exceptions.ErrorMessage;

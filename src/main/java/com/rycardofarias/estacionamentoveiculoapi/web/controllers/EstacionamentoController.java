@@ -1,6 +1,7 @@
 package com.rycardofarias.estacionamentoveiculoapi.web.controllers;
 
 import com.rycardofarias.estacionamentoveiculoapi.entities.ClienteVaga;
+import com.rycardofarias.estacionamentoveiculoapi.jwt.JwtUserDetails;
 import com.rycardofarias.estacionamentoveiculoapi.repositories.projections.ClienteVagaProjection;
 import com.rycardofarias.estacionamentoveiculoapi.servicies.ClienteVagaService;
 import com.rycardofarias.estacionamentoveiculoapi.servicies.EstacionamentoService;
@@ -28,6 +29,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -38,7 +40,7 @@ import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/estacionamento")
+@RequestMapping("/api/v1/estacionamentos")
 public class EstacionamentoController {
 
     private final EstacionamentoService estacionamentoService;
@@ -117,7 +119,7 @@ public class EstacionamentoController {
                             content = @Content(mediaType = " application/json;charset=UTF-8",
                                     schema = @Schema(implementation = ErrorMessage.class)))
             })
-    @GetMapping("/check-out/{recibo}")
+    @PutMapping("/check-out/{recibo}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<EstacionamentoResponseDto> checkout(@PathVariable String recibo) {
         ClienteVaga clienteVaga = estacionamentoService.checkout(recibo);
@@ -157,6 +159,43 @@ public class EstacionamentoController {
     @PageableDefault(size = 5, sort = "dataEntrada",
             direction = Sort.Direction.ASC) Pageable pageable) {
         Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorClienteCpf(cpf, pageable);
+        PageableDto dto = PageableMapper.toDto(projection);
+        return ResponseEntity.ok(dto);
+    }
+
+    @Operation(summary = "Localizar os registros de estacionamentos do cliente logado",
+            description = "Localizar os registros de estacionamentos do cliente logado. " +
+                    "Requisição exige uso de um bearer token.",
+            security = @SecurityRequirement(name = "security"),
+            parameters = {
+                    @Parameter(in = QUERY, name = "page",
+                            content = @Content(schema = @Schema(type = "integer", defaultValue = "0")),
+                            description = "Representa a página retornada"
+                    ),
+                    @Parameter(in = QUERY, name = "size",
+                            content = @Content(schema = @Schema(type = "integer", defaultValue = "5")),
+                            description = "Representa o total de elementos por página"
+                    ),
+                    @Parameter(in = QUERY, name = "sort", hidden = true,
+                            array = @ArraySchema(schema = @Schema(type = "string", defaultValue = "dataEntrada,asc")),
+                            description = "Campo padrão de ordenação 'dataEntrada,asc'. ")
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Recurso localizado com sucesso",
+                            content = @Content(mediaType = " application/json;charset=UTF-8",
+                                    schema = @Schema(implementation = EstacionamentoResponseDto.class))),
+                    @ApiResponse(responseCode = "403", description = "Recurso não permito ao perfil de ADMIN",
+                            content = @Content(mediaType = " application/json;charset=UTF-8",
+                                    schema = @Schema(implementation = ErrorMessage.class)))
+            })
+    @GetMapping
+    @PreAuthorize("hasRole('CLIENTE')")
+    public ResponseEntity<PageableDto> getAllEstacionamentosDoCliente(@AuthenticationPrincipal JwtUserDetails user,
+                                                                      @Parameter(hidden = true) @PageableDefault(
+                                                                              size = 5, sort = "dataEntrada",
+                                                                              direction = Sort.Direction.ASC) Pageable pageable) {
+
+        Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorUsuarioId(user.getId(), pageable);
         PageableDto dto = PageableMapper.toDto(projection);
         return ResponseEntity.ok(dto);
     }

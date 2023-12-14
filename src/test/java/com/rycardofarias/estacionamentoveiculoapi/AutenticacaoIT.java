@@ -1,6 +1,6 @@
 package com.rycardofarias.estacionamentoveiculoapi;
 
-import com.rycardofarias.estacionamentoveiculoapi.web.dtos.mappers.UsuarioLoginDto;
+import com.rycardofarias.estacionamentoveiculoapi.web.dtos.UsuarioLoginDto;
 import com.rycardofarias.estacionamentoveiculoapi.jwt.JwtToken;
 import com.rycardofarias.estacionamentoveiculoapi.web.exceptions.ErrorMessage;
 import org.junit.jupiter.api.Test;
