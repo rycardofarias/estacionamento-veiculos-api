@@ -130,7 +130,7 @@ ORDER BY
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{marca}.toUpperCase()]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="138" y="60" width="142" height="30" uuid="afd38656-06be-471a-a54d-d5ebc927ee5e"/>
@@ -138,7 +138,7 @@ ORDER BY
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{modelo}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{modelo}.toUpperCase()]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="410" y="60" width="145" height="30" uuid="a9014715-bbf6-497e-93b1-5e2984f5e072"/>
@@ -146,7 +146,7 @@ ORDER BY
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{placa}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{placa}.toUpperCase()]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="280" y="60" width="130" height="30" uuid="b96a3960-fa62-4db8-afd6-f5abcb2501e7"/>
@@ -154,7 +154,7 @@ ORDER BY
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{cor}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{cor}.toUpperCase()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="30" width="137" height="30" uuid="ef26f4fa-edf3-418e-b083-d41f39ca3d03"/>
@@ -380,9 +380,7 @@ ORDER BY
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{data_saida} != null ? $F{data_saida} : "Aguardando saída"
-
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{data_saida} != null ? $F{data_saida} : "Aguardando saída"]]></textFieldExpression>
 			</textField>
 			<textField pattern="HH:mm:ss a">
 				<reportElement x="240" y="90" width="110" height="30" uuid="18bbe76c-ab1d-4bda-972c-79211e9f524c"/>
@@ -396,8 +394,7 @@ ORDER BY
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{hours} == null || $F{hours}.equals("0")) ? ($F{minutes} == null ? "xxxxxxxxxxx" : $F{minutes} + "min") : ($F{hours} + "h:" + ($F{minutes} == null ? "xxxxxxxxxxx" : $F{minutes} + "min"))
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{hours} == null || $F{hours}.equals("0")) ? ($F{minutes} == null ? "xxxxxxxxxxx" : $F{minutes} + "min") : ($F{hours} + "h:" + ($F{minutes} == null ? "xxxxxxxxxxx" : $F{minutes} + "min"))]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤ #,##0.00;¤-#,##0.00">
 				<reportElement x="350" y="90" width="110" height="30" uuid="5a4725e7-3375-4e29-9a73-9aed95f6ec00"/>
