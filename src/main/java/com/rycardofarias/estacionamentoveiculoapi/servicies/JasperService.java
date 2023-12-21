@@ -3,6 +3,7 @@ package com.rycardofarias.estacionamentoveiculoapi.servicies;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.springframework.core.io.Resource;
@@ -29,23 +30,23 @@ public class JasperService {
 
     private static final String JASPER_DIRETORIO = "classpath:reports/";
 
-    private void addParams(String key, Object value){
-        this.params.put("IMAGEM_DIRETORIO", JASPER_DIRETORIO);
+    public void addParams(String key, Object value) {
+        //this.params.put("IMAGEM_DIRETORIO", JASPER_DIRETORIO);
         this.params.put("REPORT_LOCALE", new Locale("pt", "BR"));
         this.params.put(key, value);
     }
 
     public byte[] gerarPdf() {
         byte[] bytes = null;
-        try{
-            Resource resource = resourceLoader.getResource(JASPER_DIRETORIO.concat("relatorio-cliente-vaga.jasper"));
+        try {
+            Resource resource = resourceLoader.getResource(JASPER_DIRETORIO.concat("EstacionamentoJasper.jasper"));
             InputStream stream = resource.getInputStream();
             JasperPrint print = JasperFillManager.fillReport(stream, params, dataSource.getConnection());
-        } catch (IOException |JRException | SQLException exception) {
-            log.error("Jasper Reports ::: ", exception.getCause());
-            throw new RuntimeException(exception);
+            bytes = JasperExportManager.exportReportToPdf(print);
+        } catch (IOException | JRException | SQLException e) {
+            log.error("Jasper Reports ::: ", e.getCause());
+            throw new RuntimeException(e);
         }
-
         return bytes;
     }
 }

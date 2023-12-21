@@ -6,9 +6,6 @@
 	<parameter name="CPF" class="java.lang.String">
 		<parameterDescription><![CDATA[Número do CPF]]></parameterDescription>
 	</parameter>
-	<parameter name="IMAGEM_DIRETORIO" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
-	</parameter>
 	<queryString>
 		<![CDATA[SELECT 
     clientes.cpf,
@@ -226,12 +223,6 @@ ORDER BY
 					<pen lineWidth="0.0"/>
 				</graphicElement>
 			</rectangle>
-			<image>
-				<reportElement x="0" y="0" width="555" height="78" uuid="d62a6c5b-3be5-4e8a-9f03-d4238d061adf">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<imageExpression><![CDATA[$P{IMAGEM_DIRETORIO} + "images/parking.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
