@@ -97,7 +97,7 @@ http://localhost:8080/api/v1/clientes?page=0
 
 http://localhost:8080/api/v1/clientes/detalhes
 
-### Vagas
+### Vagas (Authorization Bearer Token)
 
 - POST: Vagas - create
 
@@ -112,7 +112,7 @@ http://localhost:8080/api/v1/vagas
 
 http://localhost:8080/api/v1/vagas/A-01
 
-### Estacionamentos
+### Estacionamentos (Authorization Bearer Token)
 
 - POST: Estacionamentos - check-in
 
