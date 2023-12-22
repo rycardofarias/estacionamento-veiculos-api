@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ import java.net.URI;
 @Tag(name = "Vagas", description = "Contém todas as opereções relativas ao recurso de uma vaga")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/vagas")
+@RequestMapping(path = "/api/v1/vagas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VagaController {
 
     private final VagaService vagaService;

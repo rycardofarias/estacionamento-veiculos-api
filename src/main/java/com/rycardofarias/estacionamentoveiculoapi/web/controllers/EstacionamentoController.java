@@ -45,7 +45,7 @@ import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/estacionamentos")
+@RequestMapping(path = "/api/v1/estacionamentos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EstacionamentoController {
 
     private final EstacionamentoService estacionamentoService;
